@@ -11,6 +11,10 @@ function fetchHeadlines(opts, done) {
     isCool = opts.isCool;
   }
 
+  if (!topic) {
+    topic = '';
+  }
+
   var titles = [];
   var req = request('https://news.google.com/news?q=' + topic + '&output=rss');
   var feedparser = new FeedParser();
