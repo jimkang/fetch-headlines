@@ -15,7 +15,7 @@ function fetchHeadlines(opts, done) {
     topic = '';
   }
 
-  var titles = [];
+  var items = [];
   var req = request('https://news.google.com/news?q=' + topic + '&output=rss');
   var feedparser = new FeedParser();
 
@@ -23,8 +23,8 @@ function fetchHeadlines(opts, done) {
   req.on('response', pipeResponseToFeedParser);
 
   feedparser.on('error', passBackError);
-  feedparser.on('readable', collectTitles);
-  feedparser.on('end', passBackTitles);
+  feedparser.on('readable', collectItems);
+  feedparser.on('end', passBackItems);
 
   function titleIsCool(title) {
     if (isCool) {
@@ -36,13 +36,14 @@ function fetchHeadlines(opts, done) {
     }
   }
 
-  function collectTitles() {
+  function collectItems() {
     var stream = this;
     var item;
 
     while ((item = stream.read())) {
       if (item && item.title && titleIsCool(item.title)) {
-        titles.push(trimSiteFromTitle(item.title));
+        item.title = trimSiteFromTitle(item.title);
+        items.push(item);
       }
     }
   }
@@ -62,8 +63,8 @@ function fetchHeadlines(opts, done) {
     done(error);
   }
 
-  function passBackTitles() {
-    done(null, titles);
+  function passBackItems() {
+    done(null, items);
   }
 }
 
