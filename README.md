@@ -1,7 +1,7 @@
 fetch-headlines
 ===============
 
-Fetches headlines from Google News.
+Fetches headlines from Google News or Twitter.
 
 Installation
 ------------
@@ -54,10 +54,33 @@ You can skip passing in a `topic` in opts to just get general news. You can also
     };
     fetchHeadlines(opts, logResults);
 
+To get results from Twitter rather than Google News, pass in 'twitter' as the `source` in the opts and a [twit](http://github.com/ttezel/twit) instance. e.g.:
+
+    var opts = {
+      topic: 'computers',
+      source: 'twitter',
+      twit: new Twit(yourTwitterAPIKeys)
+    };
+    fetchHeadlines(opts, logResults);
+
+
 Tests
 -----
 
-Run tests with `make test`. (Warning: These are live tests that really use the Internet.)
+Run tests with `make test`.
+
+Run live tests by first creating a config.js file in the project that has Twitter API keys like so:
+
+    module.exports = {
+      twitter: {
+        consumer_key: 'asdfkljqwerjasdfalpsdfjas',
+        consumer_secret: 'asdfasdjfbkjqwhbefubvskjhfbgasdjfhgaksjdhfgaksdxvc',
+        access_token: '9999999999-zxcvkljhpoiuqwerkjhmnb,mnzxcvasdklfhwer',
+        access_token_secret: 'opoijkljsadfbzxcnvkmokwertlknfgmoskdfgossodrh'
+      }
+    };
+
+The run `make test-live`. (Warning: These are live tests that really use the Internet.)
 
 License
 -------

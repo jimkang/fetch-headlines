@@ -19,9 +19,11 @@
   "homepage": "https://github.com/jimkang/fetch-headlines",
   "devDependencies": {
     "iscool": "^1.1.9",
-    "tape": "^3.0.3"
+    "tape": "^3.0.3",
+    "twit": "^2.2.2"
   },
   "dependencies": {
+    "call-next-tick": "^1.1.2",
     "feedparser": "^1.1.3",
     "lodash": "^3.10.1",
     "request": "^2.64.0"
